@@ -1,34 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import PackagesList from './pages/PackagesList'
+import PackageDetails from './pages/PackageDetails'
+import CreatePackage from './pages/CreatePackage'
+import BookingsList from './pages/BookingsList'
+import CreateBooking from './pages/CreateBooking'
+import NotFound from './pages/NotFound'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="flex flex-col min-h-screen w-full">
+        <Navbar />
+        <main className="flex-grow w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/packages" element={<PackagesList />} />
+            <Route path="/packages/:id" element={<PackageDetails />} />
+            <Route path="/packages/create" element={<CreatePackage />} />
+            <Route path="/bookings" element={<BookingsList />} />
+            <Route path="/bookings/create/:packageId" element={<CreateBooking />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </Router>
   )
 }
 
